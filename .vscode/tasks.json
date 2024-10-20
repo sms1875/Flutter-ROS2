@@ -1,0 +1,44 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start rosbridge_server",
+      "type": "shell",
+      "command": "source /opt/ros/humble/setup.bash && ros2 launch rosbridge_server rosbridge_websocket_launch.xml",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Start turtlesim",
+      "type": "shell",
+      "command": "source /opt/ros/humble/setup.bash && ros2 run turtlesim turtlesim_node",
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Start Flutter Web",
+      "type": "shell",
+      "command": "export PATH=\"$PATH:$HOME/flutter/bin\" && cd ~/flutter-ros_ws/flutter_app && flutter run -d web-server --web-port=8080 --web-hostname=0.0.0.0",
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "new"
+      }
+    }
+  ]
+}

@@ -6,6 +6,8 @@ import 'dart:async';
 void main() => runApp(TurtleControllerApp());
 
 class TurtleControllerApp extends StatelessWidget {
+  const TurtleControllerApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,13 +17,15 @@ class TurtleControllerApp extends StatelessWidget {
 }
 
 class TurtleController extends StatefulWidget {
+  const TurtleController({super.key});
+
   @override
   _TurtleControllerState createState() => _TurtleControllerState();
 }
 
 class _TurtleControllerState extends State<TurtleController> {
   final WebSocketChannel channel = WebSocketChannel.connect(
-    Uri.parse('ws://localhost:9090'), // rosbridge 서버와 연결 (웹소켓)
+    Uri.parse('ws://localhost:9091'), // rosbridge 서버와 연결 (웹소켓)
   );
 
   String connectionStatus = "Disconnected";
@@ -64,7 +68,7 @@ class _TurtleControllerState extends State<TurtleController> {
       print("WebSocket Disconnected");
     });
 
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       sendKeepAliveMessage();
     });
   }
@@ -139,39 +143,39 @@ class _TurtleControllerState extends State<TurtleController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Turtle Controller'),
+        title: const Text('Turtle Controller'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
             "Connection Status: $connectionStatus",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () => moveTurtle('up'),
-            child: Text('Up'),
+            child: const Text('Up'),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               ElevatedButton(
                 onPressed: () => moveTurtle('left'),
-                child: Text('Left'),
+                child: const Text('Left'),
               ),
               ElevatedButton(
                 onPressed: () => moveTurtle('right'),
-                child: Text('Right'),
+                child: const Text('Right'),
               ),
             ],
           ),
           ElevatedButton(
             onPressed: () => moveTurtle('down'),
-            child: Text('Down'),
+            child: const Text('Down'),
           ),
-          SizedBox(height: 20),
-          Text(
+          const SizedBox(height: 20),
+          const Text(
             "Movement Log:",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
