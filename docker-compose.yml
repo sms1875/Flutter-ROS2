@@ -1,19 +1,29 @@
 version: '3'
 services:
   ros2:
-    container_name: ros2-humble
-    image: osrf/ros:humble-desktop-full  # 이미지 사용
+    container_name: Flutter-ROS2-ROS
+    image: osrf/ros:humble-desktop-full
+    privileged: true
+    environment:
+      - DISPLAY=host.docker.internal:0
+    volumes:
+      - ${HOME}/.Xauthority:/root/.Xauthority # X11 인증을 위한 .Xauthority 파일 마운트
     networks:
       - dev-network
-    ports:
-      - "11311:11311" # ROS2 기본 포트
+    command: /bin/bash -c "source /opt/ros/humble/setup.bash && ros2 run turtlesim turtlesim_node" # ROS2 turtlesim 실행
+
+    restart: always  # 재시작 정책 추가
   flutter:
-    container_name: flutter-dev
-    image: ghcr.io/cirruslabs/flutter:latest  # 이미지 사용
+    container_name: Flutter-ROS2-Flutter
+    image: ghcr.io/cirruslabs/flutter:latest
     networks:
       - dev-network
     ports:
-      - "8080:8080" # Flutter 웹 서버 포트
+      - "8080:8080"
+    volumes:
+      - ./flutter:/workspace
+    command: /bin/bash -c "flutter create my_flutter_app && cd my_flutter_app && flutter run -d web-server --web-port=8080 --web-hostname=0.0.0.0"
+    restart: always  # 재시작 정책 추가
 networks:
   dev-network:
     driver: bridge

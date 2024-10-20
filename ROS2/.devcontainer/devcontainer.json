@@ -1,14 +1,10 @@
 {
-  "name": "flutter-ROS2 ROS", // DevContainer의 이름. VS Code에서 DevContainer를 구분할 때 사용.
-  "image": "osrf/ros:humble-desktop-full", // 사용할 Docker 이미지. 여기서는 ROS2 Humble Desktop Full 이미지 사용.
+  "name": "Flutter-ROS2-ROS",
+  "image": "osrf/ros:humble-desktop-full",
   "runArgs": [
-    "--privileged", // 컨테이너가 호스트 시스템의 모든 하드웨어 리소스에 접근할 수 있게 함.
-    "--env=DISPLAY=host.docker.internal:0", // GUI 프로그램 실행을 위해 X11 디스플레이 설정.
-    "--name=ros2-humble" // 생성될 컨테이너의 이름을 'ros2-humble'로 명시.
+    "--privileged",
+    "--env=DISPLAY=host.docker.internal:0"
   ],
-  "workspaceMount": "source=${localWorkspaceFolder},target=/root/ros2-ws,type=bind",
-  // 호스트의 현재 작업 디렉토리를 컨테이너의 ~/ros2-ws에 마운트.
-  "workspaceFolder": "/root/ros2-ws", // 컨테이너 내에서 작업할 기본 폴더를 ~/ros2-ws로 설정.
   "mounts": [
     "source=${localEnv:HOME}${localEnv:USERPROFILE}/.Xauthority,target=/root/.Xauthority,type=bind"
     // 호스트의 .Xauthority 파일을 컨테이너의 /root/.Xauthority에 마운트하여, 
