@@ -1,5 +1,5 @@
 {
-  "name": "ROS2 Humble", // DevContainer의 이름. VS Code에서 DevContainer를 구분할 때 사용.
+  "name": "flutter-ROS2 ROS", // DevContainer의 이름. VS Code에서 DevContainer를 구분할 때 사용.
   "image": "osrf/ros:humble-desktop-full", // 사용할 Docker 이미지. 여기서는 ROS2 Humble Desktop Full 이미지 사용.
   "runArgs": [
     "--privileged", // 컨테이너가 호스트 시스템의 모든 하드웨어 리소스에 접근할 수 있게 함.

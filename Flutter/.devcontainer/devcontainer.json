@@ -1,0 +1,18 @@
+{
+  "name": "Flutter Dev",
+  "image": "ghcr.io/cirruslabs/flutter:latest",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/root/flutter-app,type=bind",
+  "workspaceFolder": "/root/flutter-app",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+      },
+      "extensions": [
+        "dart-code.flutter",
+        "dart-code.dart-code"
+      ]
+    }
+  },
+  "postCreateCommand": "flutter doctor"
+}
