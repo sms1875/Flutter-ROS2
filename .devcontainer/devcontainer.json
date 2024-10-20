@@ -1,0 +1,30 @@
+{
+  "name": "Flutter-ROS2",
+  "image": "osrf/ros:humble-desktop-full",
+  "runArgs": [
+    "--privileged",
+    "--env=DISPLAY=host.docker.internal:0"
+  ],
+  "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.Xauthority,target=/root/.Xauthority,type=bind"
+  ],
+  "workspaceMount": "source=${localWorkspaceFolder},target=/root/flutter-ros_ws,type=bind",
+  "workspaceFolder": "/root/flutter-ros_ws",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+      },
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-python.python",
+        "ms-vscode.cmake-tools",
+        "twxs.cmake",
+        "ms-iot.vscode-ros",
+        "dart-code.flutter",
+        "dart-code.dart-code"
+      ]
+    }
+  },
+  "postCreateCommand": "/bin/bash -c 'apt update && apt install -y ros-humble-rosbridge-server && chmod +x ~/flutter-ros_ws/.devcontainer/ros2.sh && chmod +x ~/flutter-ros_ws/.devcontainer/flutter.sh && /bin/bash ~/flutter-ros_ws/.devcontainer/ros2.sh && /bin/bash ~/flutter-ros_ws/.devcontainer/flutter.sh'"
+}
