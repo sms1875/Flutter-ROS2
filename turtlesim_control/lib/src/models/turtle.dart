@@ -12,6 +12,10 @@ Map<String, dynamic> killService(String name) {
   return Service(name: "/kill").callService({"name": name});
 }
 
+Map<String, dynamic> clearService() {
+  return Service(name: "/clear").callService({});
+}
+
 class Turtlesim {
   final String name;
 
@@ -69,10 +73,5 @@ class Turtlesim {
       "b": b,
       "width": width,
     });
-  }
-
-  // 화면을 지우는 서비스 호출 메시지 생성
-  Map<String, dynamic> callClear() {
-    return clearService.callService({});
   }
 }

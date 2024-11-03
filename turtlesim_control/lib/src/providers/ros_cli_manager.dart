@@ -155,4 +155,22 @@ class RosCliManager extends ChangeNotifier {
     print(
         "펜 설정: $namespace - off: ${off ? 1 : 0}, color: ($r, $g, $b), width: $width");
   }
+
+  void teleportTurtle(String namespace, double x, double y, double theta) {
+    if (!_isConnected || turtles[namespace] == null) return;
+
+    final teleportRequest =
+        turtles[namespace]!.callTeleportAbsolute(x, y, theta);
+    _socket!.add(jsonEncode(teleportRequest));
+    print("거북이 앱솔루트 이동: $namespace - x: $x, y: $y, theta: $theta");
+  }
+
+  void clearScreen() {
+    if (!_isConnected) return;
+
+    final clearRequest = clearService();
+    _socket!.add(jsonEncode(clearRequest));
+
+    print("화면 클리어 요청");
+  }
 }
