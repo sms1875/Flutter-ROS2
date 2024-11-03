@@ -1,15 +1,28 @@
 import 'ros_models.dart';
 
+Map<String, dynamic> spawnService(double x, double y, double theta) {
+  return Service(name: "/spawn").callService({
+    "x": x,
+    "y": y,
+    "theta": theta,
+  });
+}
+
+Map<String, dynamic> killService(String name) {
+  return Service(name: "/kill").callService({"name": name});
+}
+
 class Turtlesim {
   final String name;
 
-  // Turtlesim 관련 토픽과 서비스 초기화
   final Topic poseTopic;
   final Topic velocityTopic;
   final Service teleportAbsoluteService;
   final Service teleportRelativeService;
   final Service setPenService;
   final Service clearService;
+  final Service spawnService;
+  final Service killService;
 
   Turtlesim(this.name)
       : poseTopic = Topic(name: "/$name/pose", messageType: "turtlesim/Pose"),
@@ -18,105 +31,48 @@ class Turtlesim {
         teleportAbsoluteService = Service(name: "/$name/teleport_absolute"),
         teleportRelativeService = Service(name: "/$name/teleport_relative"),
         setPenService = Service(name: "/$name/set_pen"),
-        clearService = Service(name: "/clear");
+        clearService = Service(name: "/clear"),
+        spawnService = Service(name: "/spawn"),
+        killService = Service(name: "/kill");
 
-  // 거북이의 속도를 설정하는 명령 전송
-  Map<String, dynamic> setVelocity(VelocityCommand command) {
-    return velocityTopic.publishMessage(command.toJson());
+  // 거북이의 속도 설정 메시지 생성
+  Map<String, dynamic> setVelocity(double linearX, double angularZ) {
+    return velocityTopic.publishMessage({
+      "linear": {"x": linearX, "y": 0.0, "z": 0.0},
+      "angular": {"x": 0.0, "y": 0.0, "z": angularZ},
+    });
   }
 
-  // 거북이의 절대 위치를 설정하는 서비스 호출
-  Map<String, dynamic> callTeleportAbsolute(TeleportAbsoluteRequest request) {
-    return teleportAbsoluteService.callService(request.toJson());
-  }
-
-  // 거북이의 상대 위치를 설정하는 서비스 호출
-  Map<String, dynamic> callTeleportRelative(TeleportRelativeRequest request) {
-    return teleportRelativeService.callService(request.toJson());
-  }
-
-  // 펜의 설정을 변경하는 서비스 호출
-  Map<String, dynamic> callSetPen(PenSettings settings) {
-    return setPenService.callService(settings.toJson());
-  }
-
-  // 화면을 지우는 서비스 호출
-  Map<String, dynamic> callClear() {
-    return clearService.callService({});
-  }
-}
-
-// 거북이의 속도 명령 클래스
-class VelocityCommand {
-  final double linear;
-  final double angular;
-
-  VelocityCommand({required this.linear, required this.angular});
-
-  Map<String, dynamic> toJson() {
-    return {
-      "linear": linear,
-      "angular": angular,
-    };
-  }
-}
-
-// 거북이의 절대 위치 이동 요청 클래스
-class TeleportAbsoluteRequest {
-  final double x;
-  final double y;
-  final double theta;
-
-  TeleportAbsoluteRequest(
-      {required this.x, required this.y, required this.theta});
-
-  Map<String, dynamic> toJson() {
-    return {
+  // 절대 위치 이동 서비스 호출 메시지 생성
+  Map<String, dynamic> callTeleportAbsolute(double x, double y, double theta) {
+    return teleportAbsoluteService.callService({
       "x": x,
       "y": y,
       "theta": theta,
-    };
+    });
   }
-}
 
-// 거북이의 상대 위치 이동 요청 클래스
-class TeleportRelativeRequest {
-  final double linear;
-  final double angular;
-
-  TeleportRelativeRequest({required this.linear, required this.angular});
-
-  Map<String, dynamic> toJson() {
-    return {
+  // 상대 위치 이동 서비스 호출 메시지 생성
+  Map<String, dynamic> callTeleportRelative(double linear, double angular) {
+    return teleportRelativeService.callService({
       "linear": linear,
       "angular": angular,
-    };
+    });
   }
-}
 
-// 펜 설정 요청 클래스
-class PenSettings {
-  final int off; // 수정된 부분: bool 대신 int 타입을 사용
-  final int r;
-  final int g;
-  final int b;
-  final int width;
-
-  PenSettings({
-    required this.off, // 0 또는 1로 설정
-    required this.r,
-    required this.g,
-    required this.b,
-    required this.width,
-  });
-
-  Map<String, dynamic> toJson() {
-    return {
+  // 펜 설정 서비스 호출 메시지 생성
+  Map<String, dynamic> callSetPen(int off, int r, int g, int b, int width) {
+    return setPenService.callService({
       "off": off,
       "r": r,
       "g": g,
       "b": b,
       "width": width,
-    };
+    });
+  }
+
+  // 화면을 지우는 서비스 호출 메시지 생성
+  Map<String, dynamic> callClear() {
+    return clearService.callService({});
   }
 }
