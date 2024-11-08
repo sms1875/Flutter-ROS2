@@ -58,16 +58,17 @@ class RosCliManager extends ChangeNotifier {
     try {
       _socket = await WebSocket.connect(_socketAddress!);
       _isConnected = true;
-      _updateStatus("Connect", "WebSocket 연결 성공");
+      _updateStatus("Connect", "WebSocket Connected Success");
       _updateState(AppState.connected);
 
       _socket!.listen(
         (message) => _handleMessage(message),
-        onError: (error) => _handleError("Connect Fail", "에러: $error"),
-        onDone: () => _handleError("Disconnect", "연결 종료"),
+        onError: (error) =>
+            _handleError("Connect Fail", "Connect Fail: $error"),
+        onDone: () => _handleError("Disconnect", "Disconnect"),
       );
     } catch (e) {
-      _handleError("Connect Fail", "연결 실패: $e");
+      _handleError("Connect Fail", "Connect Fail: $e");
     }
   }
 
@@ -123,7 +124,7 @@ class RosCliManager extends ChangeNotifier {
 
     final request = {"op": "call_service", "service": "/rosapi/topics"};
     _socket!.add(jsonEncode(request));
-    print("토픽 정보 요청 전송됨");
+    // print("토픽 정보 요청 전송됨");
   }
 
   /// 새로운 터틀 인스턴스를 추가하는 함수
@@ -139,7 +140,7 @@ class RosCliManager extends ChangeNotifier {
   Future<void> addNewTurtle() async {
     final spawnRequest = spawnService(5.0, 5.0, 0.0);
     _socket!.add(jsonEncode(spawnRequest));
-    print("새 거북이 추가 요청");
+    // print("새 거북이 추가 요청");
 
     await getTurtleData();
   }
@@ -150,7 +151,7 @@ class RosCliManager extends ChangeNotifier {
   Future<void> removeTurtle(String namespace) async {
     final killRequest = killService(namespace);
     _socket!.add(jsonEncode(killRequest));
-    print("거북이 제거 요청: $namespace");
+    // print("거북이 제거 요청: $namespace");
 
     await getTurtleData();
   }
@@ -159,7 +160,7 @@ class RosCliManager extends ChangeNotifier {
   void disconnect() {
     _socket?.close();
     _isConnected = false;
-    _updateStatus("Disconnect", "연결 종료");
+    _updateStatus("Disconnect", "Disconnect");
     _updateState(AppState.disconnected);
   }
 
@@ -171,7 +172,7 @@ class RosCliManager extends ChangeNotifier {
 
     final publishRequest = turtles[namespace]!.setVelocity(linearX, angularZ);
     _socket!.add(jsonEncode(publishRequest));
-    print("거북이 이동: $namespace - linearX: $linearX, angularZ: $angularZ");
+    // print("거북이 이동: $namespace - linearX: $linearX, angularZ: $angularZ");
   }
 
   /// 터틀봇을 멈추는 함수
@@ -179,7 +180,7 @@ class RosCliManager extends ChangeNotifier {
   /// [namespace]에 해당하는 터틀봇을 정지시킵니다.
   void stopTurtle(String namespace) {
     moveTurtle(namespace, 0.0, 0.0);
-    print("거북이 멈춤: $namespace");
+    // print("거북이 멈춤: $namespace");
   }
 
   /// 터틀봇의 펜을 설정하는 함수
@@ -194,8 +195,8 @@ class RosCliManager extends ChangeNotifier {
         turtles[namespace]!.callSetPen(off ? 1 : 0, r, g, b, width);
 
     _socket!.add(jsonEncode(penRequest));
-    print(
-        "펜 설정: $namespace - off: ${off ? 1 : 0}, color: ($r, $g, $b), width: $width");
+    // print(
+    //     "펜 설정: $namespace - off: ${off ? 1 : 0}, color: ($r, $g, $b), width: $width");
   }
 
   /// 터틀봇을 절대 위치로 이동시키는 함수
@@ -207,7 +208,7 @@ class RosCliManager extends ChangeNotifier {
     final teleportRequest =
         turtles[namespace]!.callTeleportAbsolute(x, y, theta);
     _socket!.add(jsonEncode(teleportRequest));
-    print("거북이 앱솔루트 이동: $namespace - x: $x, y: $y, theta: $theta");
+    // print("거북이 앱솔루트 이동: $namespace - x: $x, y: $y, theta: $theta");
   }
 
   /// 화면을 초기화하는 함수
@@ -219,6 +220,6 @@ class RosCliManager extends ChangeNotifier {
     final clearRequest = clearService();
     _socket!.add(jsonEncode(clearRequest));
 
-    print("화면 클리어 요청");
+    // print("화면 클리어 요청");
   }
 }
