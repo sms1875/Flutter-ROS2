@@ -42,7 +42,7 @@ ROS와 WebSocket을 통해 `turtlesim`을 원격 제어할 수 있는 Flutter �
 
 | 홈 화면 |
 |----------|
-| <img src="https://github.com/user-attachments/assets/df048915-34b0-4d81-bcea-207576eb6b6c" width="400"/> <img src="https://github.com/user-attachments/assets/528e2785-1b42-42e6-a254-196902ad5ee7" width="400"/> |
+| <img src="https://github.com/user-attachments/assets/df048915-34b0-4d81-bcea-207576eb6b6c" width="300"/> <img src="https://github.com/user-attachments/assets/528e2785-1b42-42e6-a254-196902ad5ee7" width="300"/> |
 
 
 ### 설정 화면
@@ -53,7 +53,7 @@ ROS와 WebSocket을 통해 `turtlesim`을 원격 제어할 수 있는 Flutter �
 
 | 설정 화면 |
 |----------|
-| <img src="https://github.com/user-attachments/assets/d415c253-6d2a-45cf-b1b4-cdcdf2c21f90" width="400"/> <img src="https://github.com/user-attachments/assets/f632c634-d0e4-4170-a7a4-dc627a8f666e" width="400"/> |
+| <img src="https://github.com/user-attachments/assets/d415c253-6d2a-45cf-b1b4-cdcdf2c21f90" width="300"/> <img src="https://github.com/user-attachments/assets/f632c634-d0e4-4170-a7a4-dc627a8f666e" width="300"/> |
 
 
 ### 터틀 제어 화면
