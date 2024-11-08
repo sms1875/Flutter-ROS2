@@ -6,7 +6,7 @@ ROS와 WebSocket을 통해 `turtlesim`을 원격 제어할 수 있는 Flutter �
 
 **Youtube 시연 영상**: https://www.youtube.com/watch?v=IgKFjTNAdM4
 
-[![Video Label](http://img.youtube.com/vi/IgKFjTNAdM4/0.jpg)](https://youtu.be/IgKFjTNAdM4)
+<img src="https://github.com/user-attachments/assets/74af9277-5f39-47e5-959e-9d062d752e95" width="200"/>
 
 ## 개발 환경
 
