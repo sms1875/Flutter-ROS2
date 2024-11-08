@@ -87,7 +87,10 @@ class _TurtleControlPageState extends State<TurtleControlPage> {
           children: [
             const SectionTitle("Control Functions"),
             const SizedBox(height: 20),
-            MovementControls(onMove: widget.rosCliManager.moveTurtle),
+            MovementControls(
+              onMove: widget.rosCliManager.moveTurtle,
+              namespace: widget.namespace,
+            ),
             const SizedBox(height: 20),
             PenControls(
               selectedColor: selectedColor,
@@ -148,8 +151,10 @@ class SectionTitle extends StatelessWidget {
 /// 방향 버튼을 통해 터틀봇을 원하는 방향으로 이동시키거나 정지시킬 수 있습니다.
 class MovementControls extends StatelessWidget {
   final Function(String, double, double) onMove;
+  final String namespace;
 
-  const MovementControls({super.key, required this.onMove});
+  const MovementControls(
+      {super.key, required this.onMove, required this.namespace});
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +165,7 @@ class MovementControls extends StatelessWidget {
           _buildIconButton(
             Icons.arrow_upward,
             "Up",
-            () => onMove("namespace", 2.0, 0.0),
+            () => onMove(namespace, 2.0, 0.0),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -168,25 +173,25 @@ class MovementControls extends StatelessWidget {
               _buildIconButton(
                 Icons.arrow_back,
                 "Left",
-                () => onMove("namespace", 0.0, 2.0),
+                () => onMove(namespace, 0.0, 2.0),
               ),
               _buildIconButton(
                 Icons.stop,
                 "Stop",
-                () => onMove("namespace", 0.0, 0.0),
+                () => onMove(namespace, 0.0, 0.0),
                 color: Colors.red,
               ),
               _buildIconButton(
                 Icons.arrow_forward,
                 "Right",
-                () => onMove("namespace", 0.0, -2.0),
+                () => onMove(namespace, 0.0, -2.0),
               ),
             ],
           ),
           _buildIconButton(
             Icons.arrow_downward,
             "Down",
-            () => onMove("namespace", -2.0, 0.0),
+            () => onMove(namespace, -2.0, 0.0),
           ),
         ],
       ),

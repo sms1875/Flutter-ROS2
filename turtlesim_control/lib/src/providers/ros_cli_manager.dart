@@ -76,7 +76,7 @@ class RosCliManager extends ChangeNotifier {
   ///
   /// 터틀 토픽 목록을 업데이트하고 터틀 인스턴스를 생성하여 관리합니다.
   void _handleMessage(String message) {
-    print("수신된 메시지: $message");
+    // print("수신된 메시지: $message");
     final response = jsonDecode(message);
 
     if (response['op'] == 'service_response' &&
@@ -106,7 +106,7 @@ class RosCliManager extends ChangeNotifier {
     connectionStatus = status;
     connectionMessage = message;
     notifyListeners();
-    print(message);
+    // print(message);
   }
 
   /// 에러 발생 시 연결 상태와 메시지를 갱신하고 앱 상태를 업데이트
