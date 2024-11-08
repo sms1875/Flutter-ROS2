@@ -4,6 +4,10 @@ import '../providers/ros_cli_manager.dart';
 import 'turtle_control_page.dart';
 import 'settings_page.dart';
 
+/// TurtleSim 제어 애플리케이션의 홈 페이지를 표시하는 위젯
+///
+/// [RosCliManager]를 사용하여 현재 터틀봇 상태 및 서버 연결 상태를 관리합니다.
+/// 앱의 주요 화면으로, 서버 연결 상태에 따라 UI가 동적으로 변경됩니다.
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -25,6 +29,10 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  /// 서버 연결 상태에 따라 화면에 표시할 콘텐츠를 생성
+  ///
+  /// [rosCliManager]의 상태에 따라 서버 연결 전, 연결 중, 데이터 로딩, 데이터 로드 완료의
+  /// 각 상태에 맞는 위젯을 반환합니다.
   Widget _buildContent(BuildContext context, RosCliManager rosCliManager) {
     switch (rosCliManager.state) {
       case AppState.disconnected:
@@ -70,6 +78,10 @@ class HomePage extends StatelessWidget {
   }
 }
 
+/// 터틀봇 리스트를 표시하는 위젯
+///
+/// 서버에서 로드된 터틀봇 목록을 표시하고, 각 터틀봇을 터치하여 제어 페이지로 이동할 수 있습니다.
+/// 삭제 버튼을 통해 개별 터틀봇을 삭제할 수 있습니다.
 class _TurtleList extends StatelessWidget {
   final RosCliManager rosCliManager;
 
@@ -103,6 +115,10 @@ class _TurtleList extends StatelessWidget {
   }
 }
 
+/// 설정 버튼을 나타내는 위젯
+///
+/// 설정 페이지로 이동할 수 있는 아이콘 버튼을 제공합니다. 설정 페이지에서 돌아온 후
+/// 서버 연결이 유지되어 있을 경우 터틀 데이터를 다시 로드합니다.
 class _SettingsButton extends StatelessWidget {
   final RosCliManager rosCliManager;
 

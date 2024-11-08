@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import '../providers/ros_cli_manager.dart';
 
+/// TurtleSim의 개별 터틀봇을 제어할 수 있는 페이지
+///
+/// 터틀봇의 이동, 펜 설정, 텔레포트 기능을 제공하며,
+/// ROS 클라이언트를 통해 서버와의 상호작용을 지원합니다.
 class TurtleControlPage extends StatefulWidget {
   final String namespace;
   final RosCliManager rosCliManager;
 
+  /// [namespace]는 제어할 터틀봇의 이름이며, [rosCliManager]는 ROS 서버와의 통신을 담당합니다.
   const TurtleControlPage({
     super.key,
     required this.namespace,
@@ -31,6 +36,7 @@ class _TurtleControlPageState extends State<TurtleControlPage> {
     super.dispose();
   }
 
+  /// 터틀봇 펜의 색상과 두께를 설정하는 함수
   void _updatePen() {
     int r = selectedColor.red;
     int g = selectedColor.green;
@@ -45,6 +51,9 @@ class _TurtleControlPageState extends State<TurtleControlPage> {
     );
   }
 
+  /// 터틀봇의 위치를 설정된 좌표로 이동시키는 함수
+  ///
+  /// [x], [y], [theta] 값을 읽어들여서 해당 위치로 터틀봇을 이동시킵니다.
   void _handleTeleport() {
     try {
       double x = double.parse(xController.text);
@@ -76,7 +85,7 @@ class _TurtleControlPageState extends State<TurtleControlPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SectionTitle("Control Functions"),
+            const SectionTitle("Control Functions"),
             const SizedBox(height: 20),
             MovementControls(onMove: widget.rosCliManager.moveTurtle),
             const SizedBox(height: 20),
@@ -116,6 +125,9 @@ class _TurtleControlPageState extends State<TurtleControlPage> {
   }
 }
 
+/// 섹션 제목을 표시하는 위젯
+///
+/// [title]에 표시할 제목을 전달받습니다.
 class SectionTitle extends StatelessWidget {
   final String title;
 
@@ -131,6 +143,9 @@ class SectionTitle extends StatelessWidget {
   }
 }
 
+/// 터틀봇의 이동을 제어하는 컨트롤 위젯
+///
+/// 방향 버튼을 통해 터틀봇을 원하는 방향으로 이동시키거나 정지시킬 수 있습니다.
 class MovementControls extends StatelessWidget {
   final Function(String, double, double) onMove;
 
@@ -190,6 +205,9 @@ class MovementControls extends StatelessWidget {
   }
 }
 
+/// 터틀봇의 펜을 설정하는 컨트롤 위젯
+///
+/// 펜 색상 및 두께를 설정하고, 펜을 비활성화할 수 있는 기능을 제공합니다.
 class PenControls extends StatelessWidget {
   final Color selectedColor;
   final ValueChanged<Color> onColorChange;
@@ -271,6 +289,9 @@ class PenControls extends StatelessWidget {
   }
 }
 
+/// 터틀봇의 위치를 설정하는 텔레포트 컨트롤 위젯
+///
+/// 사용자가 원하는 좌표와 각도로 이동할 수 있는 기능을 제공합니다.
 class TeleportControls extends StatelessWidget {
   final TextEditingController xController;
   final TextEditingController yController;
@@ -340,6 +361,9 @@ class TeleportControls extends StatelessWidget {
   }
 }
 
+/// 스타일이 적용된 컨테이너 위젯
+///
+/// [title]과 [child]를 받아 제목과 함께 표시됩니다.
 Widget _buildContainer({required String title, required Widget child}) {
   return Container(
     padding: const EdgeInsets.all(16.0),
