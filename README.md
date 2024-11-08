@@ -8,12 +8,16 @@ ROS와 WebSocket을 통해 `turtlesim`을 원격 제어할 수 있는 Flutter �
 
 <img src="https://github.com/user-attachments/assets/74af9277-5f39-47e5-959e-9d062d752e95" width="200"/>
 
+<br/>
+
 ## 개발 환경
 
 - Tools: VS Code, Docker
 - Front: Flutter
 - ROS: ROS TurtleSim 패키지, rosbridge server
 - 데이터 관리: Provider (상태 관리), WebSocket (통신)
+
+<br/>
 
 ## 기능 설명
 
@@ -29,6 +33,8 @@ ROS와 WebSocket을 통해 `turtlesim`을 원격 제어할 수 있는 Flutter �
 - 펜 색상과 굵기 설정
 - 절대 및 상대 좌표로 터틀봇 위치 이동
 - 터틀봇의 namespace를 이용하여 개별 제어 가능
+
+<br/>
 
 ## 스크린 구성
 
